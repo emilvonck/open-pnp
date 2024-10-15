@@ -91,15 +91,76 @@ class PnPWorkResp(Resource):
     @api.doc(description="""
     ### PnP WORK-RESPONSE
   ```
-  TBD
+    curl -X 'POST' \\
+    '{{ scheme }}://{{ host }}:{{ port }}/pnp/WORK-RESPONSE' \\
+    -H 'accept: application/xml' \\
+    -H 'Content-Type: application/xml' \\
+    -d '<pnp xmlns="urn:cisco:pnp" version="1.0" udi="PID:CSR1000V,VID:V00,SN:95HUSMATW2U">
+          <response xmlns="urn:cisco:pnp:device-info" correlator="CiscoPnP-1.0-R33.200930-I1-P592-T47132-2" success="1">
+            <thisProfileName>pnp-zero-touch</thisProfileName>
+            <udi>
+              <primary-chassis>PID:CSR1000V,VID:V00,SN:95HUSMATW2U</primary-chassis>
+            </udi>
+            <imageInfo>
+              <versionString>17.3.4a</versionString>
+              <imageFile>bootflash:packages.conf</imageFile>
+              <imageHash />
+              <returnToRomReason>reload</returnToRomReason>
+              <bootVariable />
+              <bootLdrVariable />
+              <configVariable />
+              <configReg>0x2102</configReg>
+              <configRegNext />
+            </imageInfo>
+            <hardwareInfo>
+              <hostname>Router</hostname>
+              <vendor>cisco</vendor>
+              <platformName>CSR1000V</platformName>
+              <processorType>VXE</processorType>
+              <hwRevision>VXE</hwRevision>
+              <mainMemSize>2121553596</mainMemSize>
+              <ioMemSize>3149400</ioMemSize>
+              <boardId>95HUSMATW2U</boardId>
+              <boardReworkId />
+              <processorRev />
+              <midplaneVersion />
+              <location />
+              <deviceType />
+            </hardwareInfo>
+            <fileSystemList>
+              <fileSystem name="bootflash" type="disk" size="6286540800" freespace="5438058496" readable="true" writable="true" />
+              <fileSystem name="webui" type="disk" size="2013806592" freespace="1910181888" readable="true" writable="false" />
+              <fileSystem name="nvram" type="nvram" size="33554432" freespace="33551308" readable="true" writable="false" />
+            </fileSystemList>
+            <profileInfo>
+              <profile profile-name="pnp-zero-touch" discovery-created="true" created-by="DHCP">
+                <primary-server>
+                  <protocol>http</protocol>
+                  <server-address>
+                    <ipv4>192.168.100.100</ipv4>
+                    <port>5000</port>
+                  </server-address>
+                </primary-server>
+              </profile>
+            </profileInfo>
+            <stackInfo>
+              <stackable>false</stackable>
+            </stackInfo>
+            <deviceModeInfo>
+              <isControllerManaged>false</isControllerManaged>
+              <mustReloadToChange>true</mustReloadToChange>
+              <initialDeviceMode>autonomous</initialDeviceMode>
+              <newDeviceMode>autonomous</newDeviceMode>
+            </deviceModeInfo>
+          </response>
+        </pnp>'
   ```
     """)
     def post(self):
         xml_data = request.get_data().decode()
         parsed_payload = xmltodict.parse(xml_data)
         logger.info(parsed_payload)
-
-        return {'pnp': 'hello'}, 200
+        return Response(status=200)
 
 
 
