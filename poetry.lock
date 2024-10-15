@@ -173,6 +173,27 @@ doc = ["Sphinx (==5.3.0)", "alabaster (==0.7.12)", "sphinx-issues (==3.0.1)"]
 test = ["Faker (==2.0.0)", "blinker", "invoke (==2.2.0)", "mock (==3.0.5)", "pytest (==7.0.1)", "pytest-benchmark (==3.4.1)", "pytest-cov (==4.0.0)", "pytest-flask (==1.3.0)", "pytest-mock (==3.6.1)", "pytest-profiling (==1.7.0)", "setuptools", "twine (==3.8.0)", "tzlocal"]
 
 [[package]]
+name = "gunicorn"
+version = "23.0.0"
+description = "WSGI HTTP Server for UNIX"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "gunicorn-23.0.0-py3-none-any.whl", hash = "sha256:ec400d38950de4dfd418cff8328b2c8faed0edb0d517d3394e457c317908ca4d"},
+    {file = "gunicorn-23.0.0.tar.gz", hash = "sha256:f014447a0101dc57e294f6c18ca6b40227a4c90e9bdb586042628030cba004ec"},
+]
+
+[package.dependencies]
+packaging = "*"
+
+[package.extras]
+eventlet = ["eventlet (>=0.24.1,!=0.36.0)"]
+gevent = ["gevent (>=1.4.0)"]
+setproctitle = ["setproctitle"]
+testing = ["coverage", "eventlet", "gevent", "pytest", "pytest-cov"]
+tornado = ["tornado (>=0.2)"]
+
+[[package]]
 name = "importlib-resources"
 version = "6.4.5"
 description = "Read resources from Python packages"
@@ -394,6 +415,17 @@ files = [
 
 [package.dependencies]
 traitlets = "*"
+
+[[package]]
+name = "packaging"
+version = "24.1"
+description = "Core utilities for Python packages"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "packaging-24.1-py3-none-any.whl", hash = "sha256:5b8f2217dbdbd2f7f384c41c628544e6d52f2d0f53c6d0c3ea61aa5d1d7ff124"},
+    {file = "packaging-24.1.tar.gz", hash = "sha256:026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002"},
+]
 
 [[package]]
 name = "parso"
@@ -713,4 +745,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "98802863475e3d46e0e020e3eb33d2a715817aadad5010dd55247ebe51aef843"
+content-hash = "3a6f3cca02213fa0876df051be7117cbba5f194197072dd3e342792a42ae727b"
