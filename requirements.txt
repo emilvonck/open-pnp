@@ -209,3 +209,6 @@ rpds-py==0.20.0 ; python_version >= "3.10" and python_version < "4.0" \
 werkzeug==3.0.4 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:02c9eb92b7d6c06f31a782811505d2157837cea66aaede3e217c7c27c039476c \
     --hash=sha256:34f2371506b250df4d4f84bfe7b0921e4762525762bbd936614909fe25cd7306
+xmltodict==0.14.1 ; python_version >= "3.10" and python_version < "4.0" \
+    --hash=sha256:338c8431e4fc554517651972d62f06958718f6262b04316917008e8fd677a6b0 \
+    --hash=sha256:3ef4a7b71c08f19047fcbea572e1d7f4207ab269da1565b5d40e9823d3894e63
