@@ -26,7 +26,8 @@ api.representations["application/xml"] = output_xml
 class PnPHello(Resource):
 
     def get(self):
-        return '', 200
+        return_xml = 'hello'
+        return Response({'hello': return_xml}, mimetype='application/xml')
 
 
 @api.route("/pnp/WORK-REQUEST")
