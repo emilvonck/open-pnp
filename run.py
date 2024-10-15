@@ -40,33 +40,66 @@ class PnPWorkReq(Resource):
   curl -X 'POST' \\
     '{{ scheme }}://{{ host }}:{{ port }}/pnp/WORK-REQUEST' \\
     -H 'accept: application/xml' \\
-    -H 'Content-Type: application/json' \\
-    -d '<pnp xmlns="urn:cisco:pnp" version="1.0" udi="PID:WS-C3750X-24T-E,VID:V04,SN:FDO1703P2EB">
-          <info xmlns="urn:cisco:pnp:work-info" correlator="CiscoPnP-1.0-1465-25A1212C">
-             <deviceId>
-              <udi>PID:WS-C3750X-24T-E,VID:V04,SN:FDO1703P2EB</udi>
-              <hostname>Router</hostname>
-              <authRequired>true</authRequired>
-              <viaProxy>false</viaProxy>
-              <securityAdvise>Password in clear text in unsecured transport</securityAdvise>
-             </deviceId>
-            </info>
-          </pnp>'
+    -H 'Content-Type: application/xml' \\
+    -d '<pnp xmlns="urn:cisco:pnp" version="1.0" udi="PID:CSR1000V,VID:V00,SN:99CWJ5DOLWQ">
+          <info xmlns="urn:cisco:pnp:work-info" correlator="CiscoPnP-1.0-R33.200930-I1-P592-T43891-2">
+              <deviceId>
+                  <udi>PID:CSR1000V,VID:V00,SN:99CWJ5DOLWQ</udi>
+                  <macAddress></macAddress>
+                  <hostname>Router</hostname>
+                  <authRequired>false</authRequired>
+                  <viaProxy>false</viaProxy>
+                  <securityAdvise>Password in clear text in unsecured transport</securityAdvise>
+              </deviceId>
+              <reason>
+                  <reload>
+                      <message>factory-reset</message><code>PnP Service Info 2408</code>
+                      <startupConfigPresent>false</startupConfigPresent>
+                  </reload>
+              </reason>
+          </info>
+        </pnp>'
   ```
     """)
     def post(self):
         xml_data = request.get_data().decode()
-        parsed_data = xmltodict.parse(xml_data)
-        udi_raw = parsed_data['pnp']['@udi']
-        udi_list = udi_raw.split(',')
-        udi_parsed = {i.split(':')[0]: i.split(':')[1] for i in udi_list}
-        return_data = {**parsed_data['pnp']}
-        logger.info(xml_data)
-        logger.info(udi_parsed)
+        parsed_payload = xmltodict.parse(xml_data)
+        logger.info(parsed_payload)
+        device_info = {
+            '@xmlns': 'urn:cisco:pnp',
+            '@version': '1.0',
+            '@udi': '',
+            '@usr': 'admin',
+            '@pwd': 'cisco',
+            'request': {
+                '@correlator': '',
+                '@xmlns': 'urn:cisco:pnp:device-info',
+                'deviceInfo': {
+                    '@type': 'all'
+                }
+            }
+        }
+        device_info['@udi'] = parsed_payload['pnp']['@udi']
+        device_info['request']['@correlator'] = parsed_payload['pnp']['info']['@correlator']
 
-        return_xml = xmltodict.unparse({'pnp': return_data})
+        return {'pnp': device_info}, 200
 
-        return Response(return_xml, mimetype='application/xml')
+@api.route("/pnp/WORK-RESPONSE")
+class PnPWorkResp(Resource):
+
+    @api.produces(["application/xml; charset=utf-8"])
+    @api.doc(description="""
+    ### PnP WORK-RESPONSE
+  ```
+  TBD
+  ```
+    """)
+    def post(self):
+        xml_data = request.get_data().decode()
+        parsed_payload = xmltodict.parse(xml_data)
+        logger.info(parsed_payload)
+
+        return {'pnp': 'hello'}, 200
 
 
 
